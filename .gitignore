@@ -267,10 +267,11 @@ tags
 
 ### Project template
 
-hokto/media/
+chat/media/
 
 .pytest_cache/
 
+.vim
 
 .ipython/
 .env
