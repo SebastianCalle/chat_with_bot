@@ -8,4 +8,5 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('chat/', include('chat.urls')),
+    path('users/', include('users.urls')),
 ]

@@ -23,28 +23,7 @@
         <div class="wrap">
           <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
           <p>Mike Ross</p>
-          <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
-          <div id="status-options">
-            <ul>
-              <li id="status-online" class="active"><span class="status-circle"></span> <p>Online</p></li>
-              <li id="status-away"><span class="status-circle"></span> <p>Away</p></li>
-              <li id="status-busy"><span class="status-circle"></span> <p>Busy</p></li>
-              <li id="status-offline"><span class="status-circle"></span> <p>Offline</p></li>
-            </ul>
-          </div>
-          <div id="expanded">
-            <label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
-            <input name="twitter" type="text" value="mikeross" />
-            <label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
-            <input name="twitter" type="text" value="ross81" />
-            <label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
-            <input name="twitter" type="text" value="mike.ross" />
-          </div>
         </div>
-      </div>
-      <div id="search">
-        <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
-        <input type="text" placeholder="Search contacts..." />
       </div>
       <div id="contacts">
         <ul>
@@ -79,11 +58,6 @@
       <div class="contact-profile">
         <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
         <p>{{ username }}</p>
-        <div class="social-media">
-          <i class="fa fa-facebook" aria-hidden="true"></i>
-          <i class="fa fa-twitter" aria-hidden="true"></i>
-          <i class="fa fa-instagram" aria-hidden="true"></i>
-        </div>
       </div>
       <div class="messages">
         <ul id="chat-log">
@@ -100,7 +74,6 @@
       <div class="message-input">
         <div class="wrap">
         <input id="chat-message-input" type="text" placeholder="Write your message..." />
-        <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
         <button id="chat-message-submit" class="submit">
           <i class="fa fa-paper-plane" aria-hidden="true"></i>
         </button>
@@ -120,15 +93,13 @@
         '/ws/chat/' + roomName + '/');
 
     chatSocket.onopen = function(e) {
-      console.log('pull')
-      pullMessages();
+      fetchMessages();
     }
 
     chatSocket.onmessage = function(e) {
-        console.log('onmessage', e.data)
         var data = JSON.parse(e.data);
         if (data['command'] === 'messages') {
-          for (let i=0; i < data['messages'].length; i++) {
+          for (let i=0; i<data['messages'].length; i++) {
             createMessage(data['messages'][i]);
           }
         } else if (data['command'] === 'new_message'){
@@ -158,8 +129,8 @@
         messageInputDom.value = '';
     };
 
-    function pullMessages() {
-      chatSocket.send(JSON.stringify({'command': 'pull_messages' }));
+    function fetchMessages() {
+      chatSocket.send(JSON.stringify({'command': 'fetch_messages' }));
     }
 
     function createMessage(data) {
