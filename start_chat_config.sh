@@ -7,10 +7,9 @@ sudo apt-get -y install python3-pip
 sudo pip3 install virtualenv
 virtualenv -p python3 .env
 echo "Activate enviroment"
-cd 
-var=$(pwd)/chat_with_both
-cd $var
 source .env/bin/activate
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+echo $DIR
 
 echo "Install Requiremets"
 pip install -r requirements.txt
