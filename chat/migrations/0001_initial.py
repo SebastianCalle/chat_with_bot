@@ -5,6 +5,17 @@ from django.db import migrations, models
 import django.db.models.deletion
 import django.utils.timezone
 import model_utils.fields
+from django.contrib.auth.hashers import make_password
+
+
+def add_bot(apps, schema_editor):
+    User = apps.get_model(*settings.AUTH_USER_MODEL.split('.'))
+    User.objects.create(
+        email='bot@chat.com',
+        password=make_password('s3cr3tp4ssw0rd!'),
+        short_name='Boot',
+        full_name='Financial Boot',
+    )
 
 
 class Migration(migrations.Migration):

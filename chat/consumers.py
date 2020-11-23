@@ -4,7 +4,7 @@
 import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-from chat.utils import get_last_fifteen_messages
+from chat.utils import get_last_fifteen_messages, get_stock
 
 # Django
 from django.contrib.auth import get_user_model
@@ -67,6 +67,8 @@ class ChatConsumer(WebsocketConsumer):
         if not user:
             raise Http404("Author does not exist")
         print('receive', data['message'])
+        if data['message'] == '':
+            return
         message = Message.objects.create(content=data['message'], author=user)
         contex = {
             'command': 'new_message',
@@ -78,10 +80,12 @@ class ChatConsumer(WebsocketConsumer):
         }
         return self.send_chat_message(contex)
 
-    #command = {
-    #    'pull_message': pull_message,
-    #    'new_message': new_message
-    #}
+    def stock_api(self, data):
+        """Handle the boot to return a information of stock"""
+        command = data['message']
+        stock = command.split('=')[1].replace(' ', '')
+        message_stock = get_stock(stock)
+        return message_stock
 
     def receive(self, text_data):
         """Receive message from WebSocket."""
@@ -90,7 +94,10 @@ class ChatConsumer(WebsocketConsumer):
             self.pull_messages()
         if data['command'] == 'new_message':
             self.new_message(data)
-        #self.command[data['command']](self, data)
+        if data['command'] == 'stock':
+            message = self.stock_api(data)
+            data['message'] = message
+            self.new_message(data)
 
     def send_chat_message(self, message):
         """Send the message to chat_message."""
@@ -102,10 +109,6 @@ class ChatConsumer(WebsocketConsumer):
                 'message': message
             }
         )
-
-    def send_message(self, message):
-        """Send the message to WebSocket."""
-        self.send(text_data=json.dumps(message))
 
     def chat_message(self, event):
         """Receive message from room group."""

@@ -147,10 +147,13 @@
     };
 
     document.querySelector('#chat-message-submit').onclick = function(e) {
-        var messageInputDom = document.getElementById('chat-message-input');
-        var message = messageInputDom.value;
+        let messageInputDom = document.getElementById('chat-message-input');
+        let message = messageInputDom.value;
+        let stockRegex = RegExp('^/stock=*')
+        let command = 'new_message'
+        if (stockRegex.test(message) == true) { command = 'stock' }
         chatSocket.send(JSON.stringify({
-            'command': 'new_message',
+            'command': command,
             'message': message,
             'from': username
         }));
