@@ -1,8 +1,6 @@
 <p>
-<img width="180" height="100" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.listennotes.com%2Fes%2Fpodcasts%2Fdjango-chat-william-vincent-and-carlton-ou5xB2FQHrv%2F&psig=AOvVaw3itYvd92zC3wVk8qEVolYF&ust=1606231423315000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKDy5Mb8mO0CFQAAAAAdAAAAABAE" >
+<img width="180" height="100" src="https://cdn-images-1.listennotes.com/podcasts/django-chat-william-vincent-and-carlton-z6Mp1t0chkw-ou5xB2FQHrv.1400x1400.jpg" >
 </p>
-
-
 
 
 
@@ -45,9 +43,12 @@
 IMPORTANT: this deployment is for linux system, for other SO some things change.
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ```
+	1- give permission to file start_chat_config.sh (chmod +x start_chat_config.sh)
+	2- run the ./start_chat_config.sh script in your terminal to install all requirements
+
 ## Contributing
 -- Sebastian Calle - Software Developer
 ## Versioning
 -- JobSity test
 ## Authors
--- Sebastian Calle  jusemonca@gmail.com
+-- Sebastian Calle jusemonca@gmail.com
