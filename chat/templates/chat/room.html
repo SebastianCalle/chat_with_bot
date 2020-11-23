@@ -155,7 +155,8 @@
         chatSocket.send(JSON.stringify({
             'command': command,
             'message': message,
-            'from': username
+            'from': username,
+            'room': roomName
         }));
 
         messageInputDom.value = '';

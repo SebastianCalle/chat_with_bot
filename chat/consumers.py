@@ -85,7 +85,17 @@ class ChatConsumer(WebsocketConsumer):
         command = data['message']
         stock = command.split('=')[1].replace(' ', '')
         message_stock = get_stock(stock)
-        return message_stock
+        bot = User.objects.filter(username='Financial Bot').first()
+        message = Message.objects.create(content=message_stock, author=bot)
+        contex = {
+            'command': 'new_message',
+            'message': {
+                'author': message.author.username,
+                'content': message.content,
+                'created': str(message.created)
+            }
+        }
+        return self.send_chat_message(contex)
 
     def receive(self, text_data):
         """Receive message from WebSocket."""
@@ -95,9 +105,7 @@ class ChatConsumer(WebsocketConsumer):
         if data['command'] == 'new_message':
             self.new_message(data)
         if data['command'] == 'stock':
-            message = self.stock_api(data)
-            data['message'] = message
-            self.new_message(data)
+            self.stock_api(data)
 
     def send_chat_message(self, message):
         """Send the message to chat_message."""

@@ -7,6 +7,7 @@
     </div>
     <div class="row">
         <div class="col-md-6 offset-3">
+
             <form method="post">
                 {% csrf_token %}
               <div class="form-group">
@@ -22,6 +23,9 @@
                 <input type="password" class="form-control" name="password2" id="exampleInputPassword1" placeholder="confirm password" required>
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
+              <div>
+                <a href="http://127.0.0.1:8000/users/login">Login</a>
+              </div>
             </form>
         </div>
     </div>

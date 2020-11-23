@@ -6,6 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Froms
 from users.forms import NewUserForm
@@ -73,13 +74,20 @@ def logout_users(request):
     """View for logout users."""
     logout(request)
     messages.info(request, "You have successfully logged out.")
-    return redirect("homepage")
+    return redirect("users:login")
 
 
-class HomePageView(View):
+class HomePageView(LoginRequiredMixin, View):
+    """View home page """
+    login_url = 'users/login'
+    redirect_field_name = ''
 
     def get(self, request):
         context = {
             'user': request.user.username
         }
-        return render(request, template_name='users/home.html', context=context)
+        return render(
+            request,
+            template_name='users/home.html',
+            context=context
+        )
