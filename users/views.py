@@ -28,7 +28,7 @@ class LoginUserView(View):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect("users:homepage")
+                return redirect("homepage")
             messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
@@ -55,7 +55,7 @@ class RegisterUserView(View):
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful.")
-            return redirect("users:homepage")
+            return redirect("homepage")
         messages.error(
             request,
             "Unsuccessful registration. Invalid information."
@@ -73,10 +73,13 @@ def logout_users(request):
     """View for logout users."""
     logout(request)
     messages.info(request, "You have successfully logged out.")
-    return redirect("users:homepage")
+    return redirect("homepage")
 
 
 class HomePageView(View):
 
     def get(self, request):
-        return render(request, template_name='users/home.html')
+        context = {
+            'user': request.user.username
+        }
+        return render(request, template_name='users/home.html', context=context)
