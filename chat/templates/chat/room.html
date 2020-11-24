@@ -32,7 +32,7 @@
     </div>
     <div class="content">
       <div class="contact-profile">
-        <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+        <img src="https://eshendetesia.com/images/user-profile.png" alt="" />
         <p>{{ username }}</p>
         
       </div>
@@ -114,12 +114,13 @@
       var imgTag = document.createElement('img');
       var pTag = document.createElement('p');
       pTag.textContent = data.content;
-      imgTag.src = 'http://emilcarlsson.se/assets/mikeross.png';
       
       if (author === username) {
         msgListTag.className = 'sent';
+        imgTag.src = 'https://eshendetesia.com/images/user-profile.png';
       } else {
         msgListTag.className = 'replies';
+        imgTag.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGT5W0D9qW_SkbX2W1OR7vC_ttDmX0mNnBPg&usqp=CAU';
       }
       msgListTag.appendChild(imgTag);
       msgListTag.appendChild(pTag);
